@@ -30,4 +30,8 @@ public class TopicService {
     public Page<Topic> findByStatusActive(Pageable pageable) {
         return topicRepository.findByStatusACTIVE(pageable);
     }
+
+    public Topic getReferenceById(Long id) {
+        return topicRepository.getReferenceById(id);
+    }
 }

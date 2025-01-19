@@ -26,6 +26,13 @@ public class TopicController {
         return ResponseEntity.ok(service.findByStatusActive(pageable).map(DataTopicListing::new));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DataTopicListing> findById(@PathVariable Long id){
+        Topic topic = service.getReferenceById(id);
+        DataTopicListing dataTopicListing = new DataTopicListing(topic);
+        return ResponseEntity.ok(dataTopicListing);
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DataTopicCreation> createTopic(@RequestBody @Valid DataTopicCreation dataTopicCreation, UriComponentsBuilder uriComponentsBuilder){
