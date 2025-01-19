@@ -7,6 +7,7 @@ import com.onechallenge.forumhubby.model.Topic;
 import com.onechallenge.forumhubby.repository.CourseRepository;
 import com.onechallenge.forumhubby.repository.MemberRepository;
 import com.onechallenge.forumhubby.repository.TopicRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ public class TopicService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public Topic createTopic(DataTopicCreation dataTopicCreation){
+    public Topic createTopic(@Valid DataTopicCreation dataTopicCreation){
         Course course = courseRepository.findByName(dataTopicCreation.courseName());
         Member originalPoster = memberRepository.findById(dataTopicCreation.originalPosterId()).orElse(null);
         return new Topic(dataTopicCreation, course, originalPoster);
