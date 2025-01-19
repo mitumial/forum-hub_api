@@ -26,7 +26,9 @@ public class TopicService {
     public Topic createTopic(@Valid DataTopicCreation dataTopicCreation){
         Course course = courseRepository.findByName(dataTopicCreation.courseName());
         Member originalPoster = memberRepository.findById(dataTopicCreation.originalPosterId()).orElse(null);
-        return new Topic(dataTopicCreation, course, originalPoster);
+        Topic topic = new Topic(dataTopicCreation, course, originalPoster);
+        topicRepository.save(topic);
+        return topic;
     }
 
     public Page<Topic> findByStatusActive(Pageable pageable) {

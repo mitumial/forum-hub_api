@@ -25,7 +25,9 @@ public class CourseService {
     }
 
     public Course createCourse(@Valid DataCourseCreation dataCourseCreation) {
-        return new Course(dataCourseCreation);
+        Course course = new Course(dataCourseCreation);
+        repository.save(course);
+        return course;
     }
 
     public void deleteById(Long id) {
