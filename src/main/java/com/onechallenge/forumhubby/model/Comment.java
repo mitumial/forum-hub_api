@@ -23,8 +23,10 @@ public class Comment {
     private Boolean solution;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "commenter_id")
     private Member commenter;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "topic_id")
     private Topic topic;
 }

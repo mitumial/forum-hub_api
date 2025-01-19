@@ -1,0 +1,6 @@
+CREATE TABLE courses (
+    id BIGINT NOT NULL SERIAL,
+    course VARCHAR(300) NOT NULL,
+
+    PRIMARY KEY(id)
+);
