@@ -20,6 +20,7 @@ public class Comment {
     private Long id;
     private String message;
     private LocalDateTime datePosted;
+    private Boolean solution;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Member commenter;
