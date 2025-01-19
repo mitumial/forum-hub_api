@@ -24,14 +24,13 @@ public class Comment {
     @CreationTimestamp
     @Column(name = "date_posted")
     private LocalDateTime datePosted;
+
     @Column(name = "is_solution")
     private Boolean isSolution;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "commenter_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member commenter;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "topic_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Topic topic;
 }
