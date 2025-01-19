@@ -1,8 +1,6 @@
 CREATE TABLE members (
-    id BIGINT NOT NULL SERIAL,
+    id SERIAL PRIMARY KEY,
     alias VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(300) NOT NULL UNIQUE,
-    password VARCHAR(300) NOT NULL,
-
-    PRIMARY KEY(id)
+    password VARCHAR(300) NOT NULL
 );
