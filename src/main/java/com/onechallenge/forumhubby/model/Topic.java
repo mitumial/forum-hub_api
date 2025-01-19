@@ -29,7 +29,6 @@ public class Topic {
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 
-    @Column(name = "original_poster")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "original_poster_id")
     private Member originalPoster;
