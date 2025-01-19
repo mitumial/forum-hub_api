@@ -1,6 +1,8 @@
 package com.onechallenge.forumhubby.model;
 
+import com.onechallenge.forumhubby.dto.DataMemberRegister;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,6 +33,12 @@ public class Member implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "commenter")
     private List<Comment> comments;
+
+    public Member(DataMemberRegister dataMemberRegister) {
+        this.alias = dataMemberRegister.alias();
+        this.email = dataMemberRegister.email();
+        this.password = dataMemberRegister.password();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
