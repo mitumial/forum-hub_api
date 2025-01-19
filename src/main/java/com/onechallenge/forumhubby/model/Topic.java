@@ -42,7 +42,7 @@ public class Topic {
     @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
 
-    public Topic(@Valid DataTopicCreation dataTopicCreation,Course course, Member originalPoster) {
+    public Topic(DataTopicCreation dataTopicCreation,Course course, Member originalPoster) {
         this.title = dataTopicCreation.title();
         this.message = dataTopicCreation.message();
         this.originalPoster = originalPoster;

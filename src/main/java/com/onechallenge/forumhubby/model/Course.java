@@ -2,7 +2,6 @@ package com.onechallenge.forumhubby.model;
 
 import com.onechallenge.forumhubby.dto.DataCourseCreation;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -4,6 +4,7 @@ import com.onechallenge.forumhubby.dto.DataCourseCreation;
 import com.onechallenge.forumhubby.dto.DataCourseListing;
 import com.onechallenge.forumhubby.model.Course;
 import com.onechallenge.forumhubby.repository.CourseRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,5 +26,12 @@ public class CourseService {
 
     public Course createCourse(@Valid DataCourseCreation dataCourseCreation) {
         return new Course(dataCourseCreation);
+    }
+
+    public void deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("Course of ID " + id + " not found");
+        }
+        repository.deleteById(id);
     }
 }

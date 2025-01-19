@@ -41,4 +41,11 @@ public class CourseController {
         URI url = uriComponentsBuilder.path("/courses/{id}").buildAndExpand(course.getId()).toUri();
         return ResponseEntity.created(url).body(dataCourseCreation);
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
