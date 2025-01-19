@@ -22,8 +22,8 @@ public class Member {
     private String email;
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
     private List<Topic> topics;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commenter")
     private List<Comment> comments;
 }

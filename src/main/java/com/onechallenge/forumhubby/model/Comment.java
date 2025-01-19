@@ -20,8 +20,11 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+
     @CreationTimestamp
+    @Column(name = "date_posted")
     private LocalDateTime datePosted;
+    @Column(name = "is_solution")
     private Boolean isSolution;
 
     @ManyToOne(fetch = FetchType.EAGER)

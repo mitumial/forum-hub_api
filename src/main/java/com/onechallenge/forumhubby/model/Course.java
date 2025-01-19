@@ -20,6 +20,6 @@ public class Course {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
     private List<Topic> topics;
 }

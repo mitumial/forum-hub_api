@@ -22,16 +22,19 @@ public class Topic {
     private Long id;
     private String title;
     private String message;
+
     @CreationTimestamp
+    @Column(name = "date_posted")
     private LocalDateTime datePosted;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 
+    @Column(name = "original_poster")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "original_poster_id")
     private Member originalPoster;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @ManyToOne(fetch = FetchType.EAGER)
