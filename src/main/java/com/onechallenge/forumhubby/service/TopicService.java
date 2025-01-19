@@ -8,6 +8,8 @@ import com.onechallenge.forumhubby.repository.CourseRepository;
 import com.onechallenge.forumhubby.repository.MemberRepository;
 import com.onechallenge.forumhubby.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,4 +27,7 @@ public class TopicService {
         return new Topic(dataTopicCreation, course, originalPoster);
     }
 
+    public Page<Topic> findByStatusActive(Pageable pageable) {
+        return topicRepository.findByStatusACTIVE(pageable);
+    }
 }
