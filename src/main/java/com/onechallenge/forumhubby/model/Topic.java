@@ -1,6 +1,8 @@
 package com.onechallenge.forumhubby.model;
 
+import com.onechallenge.forumhubby.dto.DataTopicCreation;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Topic")
@@ -38,4 +41,12 @@ public class Topic {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
+
+    public Topic(@Valid DataTopicCreation dataTopicCreation,Course course, Member originalPoster) {
+        this.title = dataTopicCreation.title();
+        this.message = dataTopicCreation.message();
+        this.originalPoster = originalPoster;
+        this.comments = new ArrayList<>();
+        this.course = course;
+    }
 }
