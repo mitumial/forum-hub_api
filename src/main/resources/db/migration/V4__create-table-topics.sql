@@ -4,7 +4,7 @@ CREATE TABLE topics (
     message TEXT NOT NULL,
     date_posted TIMESTAMP NOT NULL,
     course VARCHAR(300) NOT NULL,
-    status VARCHAR(6) NOT NULL,
+    status post_status NOT NULL DEFAULT 'ACTIVE',
     original_poster_id BIGINT,
 
     PRIMARY KEY(id)

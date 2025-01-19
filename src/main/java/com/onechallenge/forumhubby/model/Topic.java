@@ -23,7 +23,9 @@ public class Topic {
     private String message;
     private LocalDateTime datePosted;
     private String course;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Member originalPoster;
