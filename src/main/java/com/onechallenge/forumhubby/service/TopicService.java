@@ -3,6 +3,7 @@ package com.onechallenge.forumhubby.service;
 import com.onechallenge.forumhubby.dto.DataTopicCreation;
 import com.onechallenge.forumhubby.model.Course;
 import com.onechallenge.forumhubby.model.Member;
+import com.onechallenge.forumhubby.model.PostStatus;
 import com.onechallenge.forumhubby.model.Topic;
 import com.onechallenge.forumhubby.repository.CourseRepository;
 import com.onechallenge.forumhubby.repository.MemberRepository;
@@ -29,7 +30,7 @@ public class TopicService {
     }
 
     public Page<Topic> findByStatusActive(Pageable pageable) {
-        return topicRepository.findByStatusACTIVE(pageable);
+        return topicRepository.findByStatus(PostStatus.ACTIVE, pageable);
     }
 
     public Topic getReferenceById(Long id) {
