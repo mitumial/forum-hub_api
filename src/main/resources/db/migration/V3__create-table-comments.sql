@@ -2,7 +2,7 @@ CREATE TABLE comments (
     id BIGINT NOT NULL SERIAL,
     message TEXT NOT NULL,
     date_posted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    solution BOOLEAN NOT NULL,
+    is_solution BOOLEAN NOT NULL,
     commenter_id BIGINT,
     topic_id BIGINT,
 

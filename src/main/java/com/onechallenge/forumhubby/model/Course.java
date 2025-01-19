@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity(name = "Topic")
-@Table(name = "topics")
+@Entity(name = "Course")
+@Table(name = "courses")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +20,6 @@ public class Course {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Topic> topics;
 }

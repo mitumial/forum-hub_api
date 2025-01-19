@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +20,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+    @CreationTimestamp
     private LocalDateTime datePosted;
-    private Boolean solution;
+    private Boolean isSolution;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commenter_id")
