@@ -45,4 +45,8 @@ public class CommentService {
         }
         commentRepository.deleteById(id);
     }
+
+    public Page<Comment> findByTopic(Topic topic, Pageable pageable) {
+        return commentRepository.findByTopic(topic, pageable);
+    }
 }

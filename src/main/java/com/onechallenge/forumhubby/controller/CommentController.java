@@ -20,11 +20,6 @@ public class CommentController {
     @Autowired
     private CommentService service;
 
-//    @GetMapping
-//    public ResponseEntity<Page<DataCommentListing>> findAll(Pageable pageable){
-//        return ResponseEntity.ok(service.findByStatusActive(pageable).map(DataCommentListing::new));
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<DataCommentListing> findById(@PathVariable Long id){
         Comment comment = service.getReferenceById(id);

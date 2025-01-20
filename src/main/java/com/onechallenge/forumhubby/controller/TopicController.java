@@ -1,12 +1,11 @@
 package com.onechallenge.forumhubby.controller;
 
-import com.onechallenge.forumhubby.dto.DataTopicClose;
-import com.onechallenge.forumhubby.dto.DataTopicCreation;
-import com.onechallenge.forumhubby.dto.DataTopicEditing;
-import com.onechallenge.forumhubby.dto.DataTopicListing;
+import com.onechallenge.forumhubby.dto.*;
 import com.onechallenge.forumhubby.model.Topic;
+import com.onechallenge.forumhubby.model.Comment;
 import com.onechallenge.forumhubby.service.CommentService;
 import com.onechallenge.forumhubby.service.TopicService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,10 +32,13 @@ public class TopicController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DataTopicListing> findById(@PathVariable Long id){
-        Topic topic = service.getReferenceById(id);
+    public ResponseEntity<DataTopicWithComments> findById(@PathVariable Long id, Pageable pageable){
+        Topic topic = service.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
         DataTopicListing dataTopicListing = new DataTopicListing(topic);
-        return ResponseEntity.ok(dataTopicListing);
+        Page<DataCommentListing> commentListingPage = commentService.findByTopic(topic, pageable)
+                .map(DataCommentListing::new);
+        return ResponseEntity.ok(new DataTopicWithComments(dataTopicListing, commentListingPage));
     }
 
     @PostMapping

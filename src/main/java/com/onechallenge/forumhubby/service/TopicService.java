@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class TopicService {
     @Autowired
@@ -37,5 +39,9 @@ public class TopicService {
 
     public Topic getReferenceById(Long id) {
         return topicRepository.getReferenceById(id);
+    }
+
+    public Optional<Topic> findById(Long id) {
+        return topicRepository.findById(id);
     }
 }
