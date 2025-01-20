@@ -1,8 +1,11 @@
 package com.onechallenge.forumhubby.controller;
 
+import com.onechallenge.forumhubby.dto.DataTopicClose;
 import com.onechallenge.forumhubby.dto.DataTopicCreation;
+import com.onechallenge.forumhubby.dto.DataTopicEditing;
 import com.onechallenge.forumhubby.dto.DataTopicListing;
 import com.onechallenge.forumhubby.model.Topic;
+import com.onechallenge.forumhubby.service.CommentService;
 import com.onechallenge.forumhubby.service.TopicService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ import java.net.URI;
 public class TopicController {
     @Autowired
     private TopicService service;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping
     public ResponseEntity<Page<DataTopicListing>> findAll(Pageable pageable){
@@ -41,4 +47,27 @@ public class TopicController {
         URI url = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
         return ResponseEntity.created(url).body(dataTopicCreation);
     }
+
+    @PutMapping
+    @Transactional
+    public void editTopic(@RequestBody @Valid DataTopicEditing dataTopicEditing) {
+        Topic topic = service.getReferenceById(dataTopicEditing.id());
+        topic.updateTopic(dataTopicEditing);
+    }
+
+    @PutMapping("/close")
+    @Transactional
+    public void closeTopic(@RequestBody @Valid DataTopicClose dataTopicClose) {
+        Topic topic = service.getReferenceById(dataTopicClose.topicId());
+        commentService.getReferenceById(dataTopicClose.commentId()).setAsSolution();
+        topic.closeTopic();
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deleteTopic(@PathVariable Long id) {
+        Topic topic = service.getReferenceById(id);
+        topic.delete();
+    }
+
 }

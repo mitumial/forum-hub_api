@@ -1,13 +1,12 @@
 package com.onechallenge.forumhubby.controller;
 
 import com.onechallenge.forumhubby.dto.DataCommentCreation;
+import com.onechallenge.forumhubby.dto.DataCommentEditing;
 import com.onechallenge.forumhubby.dto.DataCommentListing;
 import com.onechallenge.forumhubby.model.Comment;
 import com.onechallenge.forumhubby.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +39,13 @@ public class CommentController {
         Comment comment = service.createComment(dataCommentCreation);
         URI url = uriComponentsBuilder.path("/comments/{id}").buildAndExpand(comment.getId()).toUri();
         return ResponseEntity.created(url).body(dataCommentCreation);
+    }
+
+    @PutMapping
+    @Transactional
+    public void editComment(@RequestBody @Valid DataCommentEditing dataCommentEditing) {
+        Comment comment = service.getReferenceById(dataCommentEditing.id());
+        comment.updateComment(dataCommentEditing);
     }
 
     @DeleteMapping("/{id}")

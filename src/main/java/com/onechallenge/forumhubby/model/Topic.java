@@ -1,6 +1,7 @@
 package com.onechallenge.forumhubby.model;
 
 import com.onechallenge.forumhubby.dto.DataTopicCreation;
+import com.onechallenge.forumhubby.dto.DataTopicEditing;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -49,5 +50,19 @@ public class Topic {
         this.originalPoster = originalPoster;
         this.comments = new ArrayList<>();
         this.course = course;
+    }
+
+    public void updateTopic(@Valid DataTopicEditing dataTopicEditing) {
+        if (dataTopicEditing.message() != null) {
+            this.message = dataTopicEditing.message();
+        }
+    }
+
+    public void closeTopic(){
+        this.status = PostStatus.SOLVED;
+    }
+
+    public void delete() {
+        this.status = PostStatus.DELETED;
     }
 }

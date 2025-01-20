@@ -1,6 +1,7 @@
 package com.onechallenge.forumhubby.model;
 
 import com.onechallenge.forumhubby.dto.DataCommentCreation;
+import com.onechallenge.forumhubby.dto.DataCommentEditing;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -41,5 +42,16 @@ public class Comment {
         this.isSolution = false;
         this.commenter = commenter;
         this.topic = topic;
+    }
+
+
+    public void updateComment(@Valid DataCommentEditing dataCommentEditing) {
+        if (dataCommentEditing.message() != null) {
+            this.message = dataCommentEditing.message();
+        }
+    }
+
+    public void setAsSolution(){
+        this.isSolution = true;
     }
 }
