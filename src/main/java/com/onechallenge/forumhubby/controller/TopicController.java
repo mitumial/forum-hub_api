@@ -36,6 +36,7 @@ public class TopicController {
     @PostMapping
     @Transactional
     public ResponseEntity<DataTopicCreation> createTopic(@RequestBody @Valid DataTopicCreation dataTopicCreation, UriComponentsBuilder uriComponentsBuilder){
+        System.out.println("Received data: " + dataTopicCreation);
         Topic topic = service.createTopic(dataTopicCreation);
         URI url = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
         return ResponseEntity.created(url).body(dataTopicCreation);

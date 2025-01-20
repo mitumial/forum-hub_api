@@ -24,7 +24,7 @@ public class TopicService {
     private MemberRepository memberRepository;
 
     public Topic createTopic(@Valid DataTopicCreation dataTopicCreation){
-        Course course = courseRepository.findByName(dataTopicCreation.courseName());
+        Course course = courseRepository.findById(dataTopicCreation.courseId()).orElse(null);
         Member originalPoster = memberRepository.findById(dataTopicCreation.originalPosterId()).orElse(null);
         Topic topic = new Topic(dataTopicCreation, course, originalPoster);
         topicRepository.save(topic);

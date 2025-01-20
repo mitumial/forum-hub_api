@@ -45,6 +45,7 @@ public class Topic {
     public Topic(DataTopicCreation dataTopicCreation,Course course, Member originalPoster) {
         this.title = dataTopicCreation.title();
         this.message = dataTopicCreation.message();
+        this.status = PostStatus.ACTIVE;
         this.originalPoster = originalPoster;
         this.comments = new ArrayList<>();
         this.course = course;
