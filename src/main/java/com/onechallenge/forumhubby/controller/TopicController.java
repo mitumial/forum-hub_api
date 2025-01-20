@@ -32,8 +32,7 @@ public class TopicController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DataTopicWithComments> findById(@PathVariable Long id, Pageable pageable){
-        Topic topic = service.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+        Topic topic = service.findById(id);
         DataTopicListing dataTopicListing = new DataTopicListing(topic);
         Page<DataCommentListing> commentListingPage = commentService.findByTopic(topic, pageable)
                 .map(DataCommentListing::new);
@@ -52,22 +51,22 @@ public class TopicController {
     @PutMapping
     @Transactional
     public void editTopic(@RequestBody @Valid DataTopicEditing dataTopicEditing) {
-        Topic topic = service.getReferenceById(dataTopicEditing.id());
+        Topic topic = service.findById(dataTopicEditing.id());
         topic.updateTopic(dataTopicEditing);
     }
 
     @PutMapping("/close")
     @Transactional
     public void closeTopic(@RequestBody @Valid DataTopicClose dataTopicClose) {
-        Topic topic = service.getReferenceById(dataTopicClose.topicId());
-        commentService.getReferenceById(dataTopicClose.commentId()).setAsSolution();
+        Topic topic = service.findById(dataTopicClose.topicId());
+        commentService.findById(dataTopicClose.commentId()).setAsSolution();
         topic.closeTopic();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public void deleteTopic(@PathVariable Long id) {
-        Topic topic = service.getReferenceById(id);
+        Topic topic = service.findById(id);
         topic.delete();
     }
 

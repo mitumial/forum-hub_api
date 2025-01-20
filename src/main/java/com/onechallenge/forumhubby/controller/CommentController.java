@@ -22,7 +22,7 @@ public class CommentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DataCommentListing> findById(@PathVariable Long id){
-        Comment comment = service.getReferenceById(id);
+        Comment comment = service.findById(id);
         DataCommentListing dataCommentListing = new DataCommentListing(comment);
         return ResponseEntity.ok(dataCommentListing);
     }
@@ -38,7 +38,7 @@ public class CommentController {
     @PutMapping
     @Transactional
     public void editComment(@RequestBody @Valid DataCommentEditing dataCommentEditing) {
-        Comment comment = service.getReferenceById(dataCommentEditing.id());
+        Comment comment = service.findById(dataCommentEditing.id());
         comment.updateComment(dataCommentEditing);
     }
 

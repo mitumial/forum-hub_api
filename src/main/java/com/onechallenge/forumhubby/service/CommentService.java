@@ -24,10 +24,6 @@ public class CommentService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public Comment getReferenceById(Long id) {
-        return commentRepository.getReferenceById(id);
-    }
-
     public Page<DataCommentListing> findAll(Pageable pageable) {
         return commentRepository.findAll(pageable).map(DataCommentListing::new);
     }
@@ -48,5 +44,9 @@ public class CommentService {
 
     public Page<Comment> findByTopic(Topic topic, Pageable pageable) {
         return commentRepository.findByTopic(topic, pageable);
+    }
+
+    public Comment findById(Long id) {
+        return commentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

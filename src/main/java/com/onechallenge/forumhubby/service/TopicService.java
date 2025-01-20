@@ -8,6 +8,7 @@ import com.onechallenge.forumhubby.model.Topic;
 import com.onechallenge.forumhubby.repository.CourseRepository;
 import com.onechallenge.forumhubby.repository.MemberRepository;
 import com.onechallenge.forumhubby.repository.TopicRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,8 +27,8 @@ public class TopicService {
     private MemberRepository memberRepository;
 
     public Topic createTopic(@Valid DataTopicCreation dataTopicCreation){
-        Course course = courseRepository.findById(dataTopicCreation.courseId()).orElse(null);
-        Member originalPoster = memberRepository.findById(dataTopicCreation.originalPosterId()).orElse(null);
+        Course course = courseRepository.findById(dataTopicCreation.courseId()).orElseThrow(EntityNotFoundException::new);;
+        Member originalPoster = memberRepository.findById(dataTopicCreation.originalPosterId()).orElseThrow(EntityNotFoundException::new);;
         Topic topic = new Topic(dataTopicCreation, course, originalPoster);
         topicRepository.save(topic);
         return topic;
@@ -37,11 +38,7 @@ public class TopicService {
         return topicRepository.findByStatus(PostStatus.ACTIVE, pageable);
     }
 
-    public Topic getReferenceById(Long id) {
-        return topicRepository.getReferenceById(id);
-    }
-
-    public Optional<Topic> findById(Long id) {
-        return topicRepository.findById(id);
+    public Topic findById(Long id) {
+        return topicRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }
