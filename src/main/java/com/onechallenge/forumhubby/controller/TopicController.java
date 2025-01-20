@@ -2,7 +2,6 @@ package com.onechallenge.forumhubby.controller;
 
 import com.onechallenge.forumhubby.dto.*;
 import com.onechallenge.forumhubby.model.Topic;
-import com.onechallenge.forumhubby.model.Comment;
 import com.onechallenge.forumhubby.service.CommentService;
 import com.onechallenge.forumhubby.service.TopicService;
 import jakarta.persistence.EntityNotFoundException;

@@ -30,7 +30,6 @@ public class CommentController {
     @PostMapping
     @Transactional
     public ResponseEntity<DataCommentCreation> createComment(@RequestBody @Valid DataCommentCreation dataCommentCreation, UriComponentsBuilder uriComponentsBuilder){
-        System.out.println("Received data: " + dataCommentCreation);
         Comment comment = service.createComment(dataCommentCreation);
         URI url = uriComponentsBuilder.path("/comments/{id}").buildAndExpand(comment.getId()).toUri();
         return ResponseEntity.created(url).body(dataCommentCreation);
