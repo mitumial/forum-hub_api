@@ -1,6 +1,8 @@
 package com.onechallenge.forumhubby.model;
 
+import com.onechallenge.forumhubby.dto.DataCommentCreation;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,4 +35,11 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Topic topic;
+
+    public Comment(@Valid DataCommentCreation dataCommentCreation, Topic topic, Member commenter) {
+        this.message = dataCommentCreation.message();
+        this.isSolution = false;
+        this.commenter = commenter;
+        this.topic = topic;
+    }
 }

@@ -23,7 +23,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<DataMemberRegister> registerMember(@RequestBody @Valid DataMemberRegister dataMemberRegister, UriComponentsBuilder uriComponentsBuilder){
         Member member = service.registerMember(dataMemberRegister);
-        URI url = uriComponentsBuilder.path("/courses/{id}").buildAndExpand(member.getId()).toUri();
+        URI url = uriComponentsBuilder.path("/members/{id}").buildAndExpand(member.getId()).toUri();
         return ResponseEntity.created(url).body(dataMemberRegister);
     }
 }
