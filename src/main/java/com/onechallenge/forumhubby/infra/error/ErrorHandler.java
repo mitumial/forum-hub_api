@@ -1,6 +1,7 @@
 package com.onechallenge.forumhubby.infra.error;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,4 +25,10 @@ public class ErrorHandler {
             this(error.getField(), error.getDefaultMessage());
         }
     }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity handleDuplicate(DuplicateException e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("This entity is a duplicate");
+    }
+
 }
